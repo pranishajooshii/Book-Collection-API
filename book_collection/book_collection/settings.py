@@ -25,6 +25,9 @@ SECRET_KEY = 'django-insecure-al_9_htg$%i+e*phd7hecw&kk+ksb=$^edr*nh8u7lawnqcwgx
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+from dotenv import load_dotenv
+import os
+
 load_dotenv()  # load variables from .env file
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
@@ -43,6 +46,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'books',
     'rest_framework',
+    'rest_framework.authtoken',
+    'user_auth',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [

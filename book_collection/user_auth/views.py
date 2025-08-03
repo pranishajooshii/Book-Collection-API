@@ -25,7 +25,7 @@ def register(request):
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def login(request):
-      serializer=LoginSerializer(data=request, context={'request': request})
+      serializer=LoginSerializer(data=request.data, context={'request': request})
       if serializer.is_valid():
             user=serializer.validated_data['user']
             token, created= Token.objects.get_or_create(user=user)  
