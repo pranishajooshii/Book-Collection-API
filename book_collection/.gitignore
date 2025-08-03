@@ -1,0 +1,29 @@
+# Python cache and bytecode files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django stuff:
+*.log
+*.pot
+*.pyc
+*.sqlite3
+db.sqlite3
+
+media/
+staticfiles/
+
+# Environment variables
+.env
+
+# VSCode settings folder
+.vscode/
+
+# Docker files you don’t want in git (optional)
+db_data/
+pgadmin_data/
+
+# Docker compose override files (optional)
+docker-compose.override.yml
+
+

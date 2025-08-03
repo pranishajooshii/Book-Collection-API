@@ -44,4 +44,4 @@ class UserCollection(models.Model):
         unique_together = ('user', 'book')
 
     def __str__(self):
-        return f"{self.user.username} - {self.book.name}"
+        return f"{self.user.fullname} - {self.book.name}"
