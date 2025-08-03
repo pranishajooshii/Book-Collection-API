@@ -3,6 +3,8 @@ psycopg2-binary
 python-decouple
 Pillow
 djangorestframework
+python-dotenv
+django-cors-headers
 
 
 
