@@ -105,3 +105,22 @@ def get_user_collection(request):
     collections = UserCollection.objects.filter(user=request.user)
     serializer = UserCollectionSerializer(collections, many=True)
     return Response(serializer.data)
+
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def edit_user_collection(request,collection_id):
+    try:
+        user_collection=UserCollection.objects.get(id=collection_id, user=request.user)
+        
+        serializer=UserCollectionSerializer(user_collection, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"data":serializer.data, "message":"User Collection updated successfully"}, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+    except UserCollection.DoesNotExist:
+        return Response({"error": "Collection not found"}, status=status.HTTP_404_NOT_FOUND)
+
+
+   

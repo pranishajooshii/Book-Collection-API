@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager, Group, Permission
 from django.utils import timezone
 from django.contrib.auth import get_user_model
+from django.core.validators import MinValueValidator
 
 User = get_user_model()
 
@@ -44,6 +45,7 @@ class UserCollection(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
     date_started = models.DateTimeField(null=True, blank=True)
     date_finished = models.DateTimeField(null=True, blank=True)
+    current_page = models.PositiveIntegerField(default=0, null=True, blank=True, validators=[MinValueValidator(1)])
 
     class Meta:
         unique_together = ('user', 'book')
