@@ -124,3 +124,13 @@ def edit_user_collection(request,collection_id):
 
 
    
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def delete_user_collection(request, collection_id):
+    try:
+        user_collection = UserCollection.objects.get(id=collection_id, user=request.user)
+        user_collection.delete()
+        return Response({"message": "Collection deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+    
+    except UserCollection.DoesNotExist:
+        return Response({"error": "Collection not found"}, status=status.HTTP_404_NOT_FOUND)

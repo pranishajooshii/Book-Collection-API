@@ -6,4 +6,5 @@ urlpatterns = [
     path('add/', views.add_to_collection, name='add_to_collection'),
     path('my-books/', views.get_user_collection, name='get_user_collection'),
     path('update/<int:collection_id>/', views.edit_user_collection, name='edit_user_collection'),
+    path('delete/<int:collection_id>/', views.delete_user_collection, name='delete_user_collection'),
 ]
