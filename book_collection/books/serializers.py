@@ -20,10 +20,11 @@ class BookSerializer(serializers.ModelSerializer):
 
 class UserCollectionSerializer(serializers.ModelSerializer):
     book = BookSerializer(read_only=True)
+    progress_percentage=serializers.SerializerMethodField()
 
     class Meta:
         model = UserCollection
-        fields = ['id', 'user', 'book', 'reading_status', 'date_added', 'date_started', 'date_finished']
+        fields = ['id', 'user', 'book', 'reading_status', 'date_added', 'date_started', 'date_finished','progress_percentage','current_page']
         read_only_fields = ['id', 'user', 'date_added']
     
 
@@ -52,4 +53,16 @@ class UserCollectionSerializer(serializers.ModelSerializer):
               validated_data['date_started'] = timezone.now()
         return super().update(instance, validated_data)
 
-      
+    
+    def get_progress_percentage(self,obj):
+        if obj.current_page and obj.book.total_pages:
+            return round((obj.current_page/obj.book.total_pages)*100)
+        return 0
+    
+    def validate_current_page(self, value):
+        if value and hasattr(self.instance, 'book'):
+            if value > self.instance.book.total_pages:
+                raise serializers.ValidationError(
+                    f"Current page cannot exceed total pages ({self.instance.book.total_pages})"
+                )
+        return value
