@@ -31,7 +31,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 
 
 class LoginSerializer(serializers.ModelSerializer):
-    email=serializers.EmailField()
+    
     password=serializers.CharField(write_only=True)
 
     class Meta:
